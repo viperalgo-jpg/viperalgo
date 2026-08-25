@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الحصول على المؤشر</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  background:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+  overflow:hidden;
+}
+.arrow{
+  position:absolute;
+  top:25px;
+  right:18px;
+  width:115px;
+  height:220px;
+}
+.arrow path{
+  fill:none;
+  stroke:#000;
+  stroke-width:8;
+  stroke-linecap:round;
+}
+.arrow polygon{fill:#000}
+.message{
+  position:absolute;
+  top:29%;
+  width:100%;
+  text-align:center;
+  padding:0 22px;
+  font-size:clamp(27px,6vw,46px);
+  line-height:1.45;
+  font-weight:700;
+}
+.highlight{white-space:nowrap}
+</style>
+</head>
+<body>
+
+<svg class="arrow" viewBox="0 0 110 230" aria-hidden="true">
+  <path d="M10 205 C70 205,85 155,88 75 C89 55,95 35,102 22"/>
+  <polygon points="102,5 88,28 112,28"/>
+</svg>
+
+<div class="message">
+  للحصول على المؤشر <br>
+  اضغط على ⋯ ثم اختر <span class="highlight">Open in Browser</span>
+</div>
+
+<script>
+const destination = "https://t.me/edgohalgoh";
+const ua = navigator.userAgent || "";
+
+const inTikTok = /TikTok|musical_ly|BytedanceWebview|TTWebView/i.test(ua);
+const inOtherApp = /Instagram|FBAN|FBAV|Twitter|Line|Snapchat|Pinterest/i.test(ua);
+
+if (!inTikTok && !inOtherApp) {
+  window.location.replace(destination);
+}
+</script>
+
+</body>
+</html>
