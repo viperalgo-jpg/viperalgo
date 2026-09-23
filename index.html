@@ -3,65 +3,137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>الحصول على المؤشر</title>
+
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  min-height:100vh;
-  background:#fff;
-  font-family:Arial,Helvetica,sans-serif;
-  overflow:hidden;
+* {
+  box-sizing: border-box;
 }
-.arrow{
-  position:absolute;
-  top:25px;
-  right:18px;
-  width:115px;
-  height:220px;
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
 }
-.arrow path{
-  fill:none;
-  stroke:#000;
-  stroke-width:8;
-  stroke-linecap:round;
+
+/* السهم */
+.arrow {
+  position: absolute;
+  top: 25px;
+  right: 18px;
+  width: 115px;
+  height: 220px;
+
+  /* حركة السهم */
+  animation: pointMenu 1.15s ease-in-out infinite;
+  transform-origin: 85% 15%;
 }
-.arrow polygon{fill:#000}
-.message{
-  position:absolute;
-  top:29%;
-  width:100%;
-  text-align:center;
-  padding:0 22px;
-  font-size:clamp(27px,6vw,46px);
-  line-height:1.45;
-  font-weight:700;
+
+.arrow path {
+  fill: none;
+  stroke: #000;
+  stroke-width: 8;
+  stroke-linecap: round;
 }
-.highlight{white-space:nowrap}
+
+.arrow polygon {
+  fill: #000;
+}
+
+/* حركة لفوق ولتحت */
+@keyframes pointMenu {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-14px) rotate(2deg);
+  }
+}
+
+/* إيقاف الحركة إذا كان الجهاز مفعّل Reduce Motion */
+@media (prefers-reduced-motion: reduce) {
+  .arrow {
+    animation: none;
+  }
+}
+
+/* النص */
+.message {
+  position: absolute;
+  top: 29%;
+  width: 100%;
+  text-align: center;
+  padding: 0 22px;
+  font-size: clamp(27px, 6vw, 46px);
+  line-height: 1.45;
+  font-weight: 700;
+}
+
+.highlight {
+  white-space: nowrap;
+}
 </style>
+
 </head>
+
 <body>
 
+<!-- السهم -->
 <svg class="arrow" viewBox="0 0 110 230" aria-hidden="true">
+
   <path d="M10 205 C70 205,85 155,88 75 C89 55,95 35,102 22"/>
+
   <polygon points="102,5 88,28 112,28"/>
+
 </svg>
 
+
+<!-- النص -->
 <div class="message">
-  للحصول على المؤشر <br>
-  اضغط على ⋯ ثم اختر <span class="highlight">Open in Browser</span>
+
+  للحصول على المؤشر، اضغط على الثلاث نقاط (⋯) الفوق اللي يشير لها السهم،
+  
+  <br>
+
+  وبعدها اضغط على
+  <span class="highlight">Open in Browser</span> ✅
+
 </div>
 
+
 <script>
+
+/* الرابط اللي غادي يمشي ليه الزبون */
 const destination = "https://t.me/viperalgos";
+
 const ua = navigator.userAgent || "";
 
-const inTikTok = /TikTok|musical_ly|BytedanceWebview|TTWebView/i.test(ua);
-const inOtherApp = /Instagram|FBAN|FBAV|Twitter|Line|Snapchat|Pinterest/i.test(ua);
+
+/* التحقق واش الرابط مفتوح داخل TikTok */
+const inTikTok =
+  /TikTok|musical_ly|BytedanceWebview|TTWebView/i.test(ua);
+
+
+/* تطبيقات أخرى فيها متصفح داخلي */
+const inOtherApp =
+  /Instagram|FBAN|FBAV|Twitter|Line|Snapchat|Pinterest/i.test(ua);
+
+
+/*
+إذا فتح الزبون الرابط فـ Chrome / Safari
+غادي يتحول مباشرة للرابط
+*/
 
 if (!inTikTok && !inOtherApp) {
+
   window.location.replace(destination);
+
 }
+
 </script>
 
 </body>
